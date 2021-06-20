@@ -17,10 +17,12 @@ public class MainManager : MonoBehaviour
     private int m_Points;
     
     private bool m_GameOver = false;
+
+    [SerializeField] private Text BestScoreText;
    
     
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
@@ -36,7 +38,8 @@ public class MainManager : MonoBehaviour
                 brick.onDestroyed.AddListener(AddPoint);
             }
         }
-        ScoreText.text = MainMainManager.Instance.Name + " - 0";
+        
+        BestScoreText.text = "Best Score - " + MainMainManager.Instance.BestName + " - " + MainMainManager.Instance.BestScore;
     }
 
     private void Update()
@@ -45,6 +48,7 @@ public class MainManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                
                 m_Started = true;
                 float randomDirection = Random.Range(-1.0f, 1.0f);
                 Vector3 forceDir = new Vector3(randomDirection, 1, 0);
@@ -71,7 +75,24 @@ public class MainManager : MonoBehaviour
 
     public void GameOver()
     {
+        if(MainMainManager.Instance.BestScore < m_Points)
+        {
+            BestScoreText.text = "Best Score - " + MainMainManager.Instance.Name + " - " + m_Points;
+            MainMainManager.Instance.BestName = MainMainManager.Instance.Name;
+            MainMainManager.Instance.BestScore = m_Points;
+        } else if(MainMainManager.Instance.BestScore == m_Points)
+        {
+            BestScoreText.text = "Best Score - " + MainMainManager.Instance.BestName + ", " + MainMainManager.Instance.Name + " - " + m_Points;
+            MainMainManager.Instance.BestName += MainMainManager.Instance.Name;
+        }
+        
         m_GameOver = true;
         GameOverText.SetActive(true);
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene(0);
+       
     }
 }

@@ -11,8 +11,24 @@ public class MenuUIHandler : MonoBehaviour
 {
 
     [SerializeField] private InputField inputName;
+    [SerializeField] private Text BestScoreMenuText;
+
+    private void Awake()
+    {
+        if (MainMainManager.Instance != null)
+        {
+            Debug.Log("INININ");
+            BestScoreMenuText.text = "Best Score - " + MainMainManager.Instance.BestName + " - " + MainMainManager.Instance.BestScore;
+        }
+    }
+        
+    
+
     public void ExitGame()
     {
+        MainMainManager.Instance.SaveRecord();
+        Debug.Log("BestScore is: " + MainMainManager.Instance.BestScore + "" +
+            "BestName is:" + MainMainManager.Instance.BestName);
 #if UNITY_EDITOR
         EditorApplication.ExitPlaymode();
 #else
@@ -22,6 +38,7 @@ public class MenuUIHandler : MonoBehaviour
 
     public void StartGame()
     {
+        
         MainMainManager.Instance.Name = inputName.text;
         SceneManager.LoadScene(1);
     }

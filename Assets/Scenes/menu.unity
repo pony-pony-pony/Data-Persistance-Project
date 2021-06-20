@@ -532,6 +532,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputName: {fileID: 1793897629}
+  BestScoreMenuText: {fileID: 1978042030}
 --- !u!1 &700757756
 GameObject:
   m_ObjectHideFlags: 0
@@ -695,6 +696,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
+  BestScore: 0
+  BestName: 
+  BestScoreMenuText: {fileID: 1978042030}
 --- !u!4 &931287596
 Transform:
   m_ObjectHideFlags: 0
@@ -1327,7 +1331,7 @@ MonoBehaviour:
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
+    m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Best Score
